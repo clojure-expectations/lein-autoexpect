@@ -22,6 +22,11 @@ for [OS X](http://growl.info/),
 [Linux](http://mattn.github.com/growl-for-linux/), and
 [Windows](http://growlforwindows.com/).
 
+### Latest version
+
+The version in the image below is the latest (and hopefully greatest) released version of `lein-autoexpect`. It is what version number should be used in any of the verion numbers specified lower than this point in the README.
+
+![Latest version](https://clojars.org/lein-autoexpect/latest-version.svg)
 
 ### Leiningen 2.0
 
