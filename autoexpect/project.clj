@@ -13,5 +13,7 @@
                                       :username :gpg :password :gpg}]
                         ["releases" {:url "https://clojars.org/repo"
                                       :username :gpg :password :gpg}]]
+  :scm {:name "git"
+        :url "https://github.com/jakemcc/lein-autoexpect"}
   :lein-release {:scm :git
                  :deploy-via :lein-deploy})
