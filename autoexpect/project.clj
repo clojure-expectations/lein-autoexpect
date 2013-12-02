@@ -9,5 +9,9 @@
                  [jakemcc/clojure-gntp "0.1.1" :exclusions [org.clojure/clojure]]]
   :plugins [[lein-release/lein-release "1.0.4"]]
   :profiles {:dev {:dependencies [[expectations "1.4.10"]]}}
+  :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
+                                      :username :gpg :password :gpg}]
+                        ["releases" {:url "https://clojars.org/repo"
+                                      :username :gpg :password :gpg}]]
   :lein-release {:scm :git
                  :deploy-via :lein-deploy})
