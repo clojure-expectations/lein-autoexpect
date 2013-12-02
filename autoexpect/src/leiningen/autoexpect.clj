@@ -4,7 +4,7 @@
 
 (defn- add-deps [project]
   (-> project
-      (deps/add-if-missing '[lein-autoexpect "1.1"])
+      (deps/add-if-missing '[lein-autoexpect "1.2.1"])
       (deps/add-if-missing '[org.clojure/tools.namespace "0.2.4"])))
 
 (defn ^{:help-arglists '([])} autoexpect
