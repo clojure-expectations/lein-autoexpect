@@ -3,9 +3,10 @@
             [leinjacker.eval :as eval]))
 
 (defn- add-deps [project]
-  (-> project
-      (deps/add-if-missing '[lein-autoexpect "1.2.1"])
-      (deps/add-if-missing '[org.clojure/tools.namespace "0.2.4"])))
+  (let [dep-specification (first (filter (fn [[name version]] (= name 'lein-autoexpect/lein-autoexpect)) (:plugins project)))]
+    (-> project
+        (deps/add-if-missing dep-specification)
+        (deps/add-if-missing '[org.clojure/tools.namespace "0.2.4"]))))
 
 (defn ^{:help-arglists '([])} autoexpect
   "Autoruns expecations on source change
