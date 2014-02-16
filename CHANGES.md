@@ -1,5 +1,9 @@
 # Changes
 
+## 1.2.2
+
+- lein-autoexpect prints out current time after running the tests.
+
 ## 0.2.2
 
 - Adds support for reporting test results using Growl. Use `lein
