@@ -4,8 +4,6 @@
             expectations
             jakemcc.clojure-gntp.gntp))
 
-(def ^:private ^:dynamic *growl* nil)
-
 (defn- turn-off-testing-at-shutdown []
   (reset! expectations/run-tests-on-shutdown false))
 
@@ -26,35 +24,32 @@
 (def ^:private side-stars (apply str (repeat 15 "*")))
 
 (defn- print-banner []
+  (println)
   (println top-stars)
   (println side-stars "Running tests" side-stars))
 
+(defn- print-end-message []
+  (let [date-str (.format (java.text.SimpleDateFormat. "HH:mm:ss.SSS")
+                          (java.util.Date.))]
+    (println "Tests completed at" date-str)))
+
 (defn- growl [title-postfix message]
   (try
-    (when *growl*
-      (jakemcc.clojure-gntp.gntp/message
-       (str "AutoExpect - " title-postfix)
-       message))
+    (jakemcc.clojure-gntp.gntp/message (str "AutoExpect - " title-postfix) message)
     (catch Exception ex
       (println "Problem communicating with growl, exception:" (.getMessage ex)))))
 
 (defn- report [results]
   (let [{:keys [fail error test run-time]} results]
     (if (< 0 (+ fail error))
-      (growl "Failed" (format "Failed %s of %s tests."
-                              (+ fail error)
-                              test))
-      (growl "Passed" (format "Passed %s tests" test)))))
+      {:status "Failed" :message (format "Failed %s of %s tests." (+ fail error) test)}
+      {:status "Passed" :message (format "Passed %s tests" test)})))
 
 (defn- run-tests []
   (let [result (suppress-stdout (refresh-environment))]
     (if (= :ok result)
-      (do
-        (print-banner)
-        (report (expectations/run-all-tests)))
-      (let [message (str "Error refreshing environment: " clojure.core/*e)]
-        (println message)
-        (growl "Error" message )))))
+      (report (expectations/run-all-tests))
+      {:status "Error" :message (str "Error refreshing environment: " clojure.core/*e)})))
 
 (defn- something-changed? [x y]
   (not= x y))
@@ -65,8 +60,13 @@
     (let [new-tracker (scan-for-changes tracker)]
       (try
         (when (something-changed? new-tracker tracker)
-          (binding [*growl* should-growl]
-            (run-tests)))
+          (print-banner)
+          (let [result (run-tests)]
+            (when should-growl
+              (growl (:status result) (:message result)))
+            (when (= (:status result) "Error")
+              (println (:message result)))
+            (print-end-message)))
         (Thread/sleep 500)
         (catch Exception ex (.printStackTrace ex)))
       (recur new-tracker))))
