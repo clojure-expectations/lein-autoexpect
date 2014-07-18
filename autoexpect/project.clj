@@ -7,8 +7,7 @@
   :dependencies [[org.clojure/tools.namespace "0.2.4" :exclusions [org.clojure/clojure]]
                  [leinjacker "0.4.1" :exclusions [org.clojure/clojure]]
                  [jakemcc/clojure-gntp "0.1.1" :exclusions [org.clojure/clojure]]]
-  :plugins [[lein-release/lein-release "1.0.4"]]
-  :profiles {:dev {:dependencies [[expectations "1.4.10"]]}}
+  :profiles {:dev {:dependencies [[expectations "2.0.6"]]}}
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
                                       :username :gpg :password :gpg}]
                         ["releases" {:url "https://clojars.org/repo"
