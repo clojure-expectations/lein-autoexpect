@@ -46,9 +46,18 @@
       {:status "Passed" :message (format "Passed %s tests" test)})))
 
 (defn- run-tests []
-  (let [result (suppress-stdout (refresh-environment))]
-    (if (= :ok result)
-      (report (expectations/run-all-tests))
+  (let [refresh-result (suppress-stdout (refresh-environment))]
+    (if (= :ok refresh-result)
+      (let [failed-nss (atom #{})
+            expectations-fail expectations/fail]
+        (binding [expectations/fail (fn [test-name test-meta msg]
+                                      (expectations-fail test-name test-meta msg)
+                                      (swap! failed-nss conj (ns-name (:ns test-meta))))]
+          (let [test-result (report (expectations/run-all-tests))]
+          ;; Reload namespaces with failed tests to make them part of the next run.
+            (doseq [failed-ns @failed-nss]
+              (require failed-ns :reload))
+            test-result)))
       {:status "Error" :message (str "Error refreshing environment: " clojure.core/*e)})))
 
 (defn- something-changed? [x y]

@@ -1,5 +1,9 @@
 # Changes
 
+## 1.2.3
+
+- Failed tests are part of every test run until they are fixed.
+
 ## 1.2.2
 
 - lein-autoexpect prints out current time after running the tests.
