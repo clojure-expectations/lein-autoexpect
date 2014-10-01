@@ -5,7 +5,7 @@
 
 
 ;; uncomment to test failures
-;(expect 3 4)
+;; (expect 3 4)
 
 
 ;; uncomment to test failures to reload code
