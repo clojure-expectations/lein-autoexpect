@@ -48,7 +48,12 @@
 (defn- run-tests []
   (let [result (suppress-stdout (refresh-environment))]
     (if (= :ok result)
-      (report (expectations/run-all-tests))
+      ;; Reload namespaces with failed tests to make them part of the next run.
+      (let [expectations-fail expectations/fail]
+        (binding [expectations/fail (fn [test-name test-meta msg]
+                                      (expectations-fail test-name test-meta msg)
+                                      (require (ns-name (:ns test-meta)) :reload))]
+          (report (expectations/run-all-tests))))
       {:status "Error" :message (str "Error refreshing environment: " clojure.core/*e)})))
 
 (defn- something-changed? [x y]
