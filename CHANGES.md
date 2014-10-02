@@ -2,7 +2,7 @@
 
 ## 1.3.0
 
-- Upgrade to [org.clojure/tools.namespace "0.2.7].
+- Upgrade to [org.clojure/tools.namespace "0.2.7"].
 - Run all expectations after reloading code instead of just
 expectations affected by code reloading.
 
