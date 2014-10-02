@@ -4,8 +4,8 @@
   :developer "Jake McCrary"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/tools.namespace "0.2.4" :exclusions [org.clojure/clojure]]
-                 [leinjacker "0.4.1" :exclusions [org.clojure/clojure]]
+  :dependencies [[org.clojure/tools.namespace "0.2.7" :exclusions [org.clojure/clojure]]
+                 [leinjacker "0.4.2" :exclusions [org.clojure/clojure]]
                  [jakemcc/clojure-gntp "0.1.1" :exclusions [org.clojure/clojure]]]
   :profiles {:dev {:dependencies [[expectations "2.0.6"]]}}
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"

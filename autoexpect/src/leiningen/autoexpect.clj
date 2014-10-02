@@ -6,7 +6,7 @@
   (let [dep-specification (first (filter (fn [[name version]] (= name 'lein-autoexpect/lein-autoexpect)) (:plugins project)))]
     (-> project
         (deps/add-if-missing dep-specification)
-        (deps/add-if-missing '[org.clojure/tools.namespace "0.2.4"]))))
+        (deps/add-if-missing '[org.clojure/tools.namespace "0.2.7"]))))
 
 (defn ^{:help-arglists '([])} autoexpect
   "Autoruns expecations on source change
