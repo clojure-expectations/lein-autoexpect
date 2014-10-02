@@ -1,5 +1,11 @@
 # Changes
 
+## 1.3.0
+
+- Upgrade to [org.clojure/tools.namespace "0.2.7].
+- Run all expectations after reloading code instead of just
+expectations affected by code reloading.
+
 ## 1.2.2
 
 - lein-autoexpect prints out current time after running the tests.
