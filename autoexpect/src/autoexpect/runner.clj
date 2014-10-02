@@ -45,7 +45,16 @@
       {:status "Failed" :message (format "Failed %s of %s tests." (+ fail error) test)}
       {:status "Passed" :message (format "Passed %s tests" test)})))
 
+
+(defn- mark-tests-as-unrun []
+  (let [all (->> (all-ns)
+                 (mapcat (comp vals ns-interns)))
+        previously-ran-tests (filter (comp :expectations/run meta) all)]
+    (doseq [test previously-ran-tests]
+      (alter-meta! test dissoc :expectations/run :status))))
+
 (defn- run-tests []
+  (mark-tests-as-unrun)
   (let [result (suppress-stdout (refresh-environment))]
     (if (= :ok result)
       (report (expectations/run-all-tests))
