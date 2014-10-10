@@ -70,5 +70,3 @@ Copyright (C) 2011-2014 [Jake McCrary](http://jakemccrary.com)
 Distributed under the Eclipse Public License, the same as Clojure.
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jakemcc/lein-autoexpect/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
