@@ -1,4 +1,4 @@
-(defproject lein-autoexpect "1.3.1-SNAPSHOT"
+(defproject lein-autoexpect "1.4.0"
   :description "Automatically run expecations when a source file changes"
   :url "https://github.com/jakemcc/lein-autoexpect"
   :developer "Jake McCrary"
