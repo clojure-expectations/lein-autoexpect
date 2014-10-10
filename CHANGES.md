@@ -1,5 +1,11 @@
 # Changes
 
+## 1.4.0
+
+- Adds support for using
+  [terminal-notifier](https://github.com/alloy/terminal-notifier) for
+  notifications. Use `lein autoexpect :notify` to use terminal-notifier.
+
 ## 1.3.0
 
 - Upgrade to [org.clojure/tools.namespace "0.2.7"].
