@@ -6,13 +6,6 @@ pushd "$DIR/.." >/dev/null
 set -e
 set -x
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 [:major :minor :patch :alpha :beta or :rc]"
-    exit 1
-fi
-
-
-
 function version {
     grep defproject project.clj | cut -f 3 -d ' ' | sed 's/"//g'
 }
@@ -22,7 +15,7 @@ function project_name {
 }
 
 
-lein do change version leiningen.release/bump-version $1, change version leiningen.release/bump-version release
+lein change version leiningen.release/bump-version release
 release_version=$(version)
 tag_name="$(project_name)-v${release_version}"
 
