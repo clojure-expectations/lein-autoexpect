@@ -8,7 +8,7 @@
                                          (:plugins project)))]
             (-> project
                 (deps/add-if-missing dep-specification)
-                (deps/add-if-missing '[org.clojure/tools.namespace "0.2.7"]))))
+                (deps/add-if-missing '[org.clojure/tools.namespace "0.2.10"]))))
 
 (defn ^{:help-arglists '([])} autoexpect
       "Autoruns expecations on source change
