@@ -15,10 +15,6 @@
 (defn- scan-for-changes [tracker]
   (clojure.tools.namespace.dir/scan tracker))
 
-(defmacro suppress-stdout [& forms]
-  `(binding [*out* (java.io.StringWriter.)]
-     ~@forms))
-
 (defn- refresh-environment []
   (clojure.tools.namespace.repl/refresh))
 
@@ -68,7 +64,7 @@
 
 (defn- run-tests []
   (mark-tests-as-unrun)
-  (let [result (suppress-stdout (refresh-environment))]
+  (let [result (refresh-environment)]
     (if (= :ok result)
       (report (expectations/run-all-tests))
       {:status "Error" :message (str "Error refreshing environment: " clojure.core/*e)})))

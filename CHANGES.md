@@ -1,5 +1,9 @@
 # Changes
 
+## 1.5.0
+
+- Printing to stdout no longer suppressed when reloading namespaces.
+
 ## 1.4.3
 
 - Upgrade to `[org.clojure/tools.namespace "0.2.10"]`.
