@@ -1,5 +1,10 @@
 # Changes
 
+## 1.6.0
+
+- Upgrade to `[org.clojure/tools.namespace "0.2.11"]`. This should
+  improve reader conditional support.
+
 ## 1.5.0
 
 - Printing to stdout no longer suppressed when reloading namespaces.
