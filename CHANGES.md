@@ -1,5 +1,11 @@
 # Changes
 
+## 1.7.0
+
+- Use `clojure.stacktrace/root-cause` and
+  `clojure.stacktrace/print-cause-trace` to print stackstraces when
+  there is an exception reloading an environment.
+
 ## 1.6.0
 
 - Upgrade to `[org.clojure/tools.namespace "0.2.11"]`. This should
