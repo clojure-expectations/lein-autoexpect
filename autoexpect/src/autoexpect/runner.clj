@@ -1,6 +1,7 @@
 (ns autoexpect.runner
   (:require clojure.tools.namespace.track
             clojure.tools.namespace.repl
+            [clojure.stacktrace :as stacktrace]
             expectations
             jakemcc.clojure-gntp.gntp
             [clojure.string :as str]
@@ -67,7 +68,9 @@
   (let [result (refresh-environment)]
     (if (= :ok result)
       (report (expectations/run-all-tests))
-      {:status "Error" :message (str "Error refreshing environment: " clojure.core/*e)})))
+      {:status "Error" :message (str "Error refreshing environment: " (with-out-str
+                                                                        (stacktrace/print-cause-trace
+                                                                         (stacktrace/root-cause clojure.core/*e))))})))
 
 (defn- something-changed? [x y]
   (not= x y))
