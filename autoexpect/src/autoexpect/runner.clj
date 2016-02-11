@@ -75,20 +75,30 @@
 (defn- something-changed? [x y]
   (not= x y))
 
-(defn monitor-project [& {:keys [should-growl should-notify]}]
+(defn notify? [notify-type change-only last-status new-status]
+  (cond
+    (not notify-type) false
+    (not change-only) true
+    :else (not= last-status new-status)))
+
+(def ^:private last-status (atom nil))
+
+(defn monitor-project [& {:keys [should-growl should-notify change-only]}]
   (turn-off-testing-at-shutdown)
   (loop [tracker (make-change-tracker)]
     (let [new-tracker (scan-for-changes tracker)]
       (try
         (when (something-changed? new-tracker tracker)
           (print-banner)
-          (let [result (run-tests)]
-            (when should-growl
-              (growl (:status result) (:message result)))
-            (when should-notify
-              (notify (:status result) (:message result)))
-            (when (= (:status result) "Error")
+          (let [result (run-tests)
+                new-status (:status result)]
+            (when (notify? should-growl change-only @last-status new-status)
+              (growl new-status (:message result)))
+            (when (notify? should-notify change-only @last-status new-status)
+              (notify new-status (:message result)))
+            (when (= new-status "Error")
               (println (:message result)))
+            (reset! last-status new-status)
             (print-end-message)))
         (Thread/sleep 500)
         (catch Exception ex (.printStackTrace ex)))
