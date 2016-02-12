@@ -2,6 +2,15 @@
 
 Leiningen plug-in for automatically running [expectations](https://github.com/jaycfields/expectations) whenever your Clojure project's source changes.
 
+## Features
+
+- Allows you to have extremely fast feedback cycles by automatically
+  loading changed code and running your expectations.
+- Supports growl notifications of test status. `lein autoexpect :growl`
+- Supports OS X notifications using `terminal-notifier`: `lein autoexpect :notify`.
+- Supports only notifying when test status changes by adding command
+  line flag to either of the above commands. `lein autoexpect :notify :change-only`
+
 ## Usage
 
 Here is what using it looks like. 
