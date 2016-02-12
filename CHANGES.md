@@ -1,6 +1,12 @@
 # Changes
 
-## 1.7.0
+## 1.8.0
+
+- Adds support for only sending notifications if your test status
+changes state (move from failing to passing or passing to failing). To
+turn on supply the flag `:change-only` at the command line: `lein autoexpect :notify :change-only`.
+
+ ## 1.7.0
 
 - Use `clojure.stacktrace/root-cause` and
   `clojure.stacktrace/print-cause-trace` to print stackstraces when
