@@ -22,8 +22,9 @@
   Reports results to growl and STDOUT."
   [project & args]
   (let [should-growl (some #{:growl ":growl" "growl"} args)
-        should-notify (some #{:notify ":notify" "notify"} args)]
+        should-notify (some #{:notify ":notify" "notify"} args)
+        change-only (some #{:change-only ":change-only" "change-only"} args)]
     (eval/eval-in-project
      (add-deps project)
-     `(autoexpect.runner/monitor-project :should-growl ~should-growl :should-notify ~should-notify)
+     `(autoexpect.runner/monitor-project :should-growl ~should-growl :should-notify ~should-notify :change-only ~change-only)
      `(require 'autoexpect.runner))))
