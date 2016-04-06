@@ -3,7 +3,8 @@
             clojure.tools.namespace.repl
             [clojure.stacktrace :as stacktrace]
             expectations
-            jakemcc.clojure-gntp.gntp
+            [gntp :refer [make-growler]]
+            [clojure.java.io :refer [input-stream resource]]
             [clojure.string :as str]
             [clojure.java.shell :refer [sh]]))
 
@@ -32,9 +33,28 @@
                           (java.util.Date.))]
     (println "Tests completed at" date-str)))
 
-(defn- growl [title-postfix message]
+(def ^:private resource-stream (comp input-stream resource))
+
+(def ^:private growlers
+  (delay ((make-growler "AutoExpect")
+          "Passed" {:name "Passed"}
+          "Failed" {:name "Failed"}
+          "Error" {:name "Error"})))
+
+(defn- limit [string n]
+  (if (< (count string) n)
+    string
+    (str (subs string 0 n) "...")))
+
+(defn- growl-icon [status]
+  (case status
+    "Passed" (resource-stream "pass.png")
+    "Failed" (resource-stream "fail.png")
+    "Error" (resource-stream "fail.png")))
+
+(defn- growl [status message]
   (try
-    (jakemcc.clojure-gntp.gntp/message (str "AutoExpect - " title-postfix) message)
+    ((get @growlers status) status :text (limit message 500) :icon (growl-icon status))
     (catch Exception ex
       (println "Problem communicating with growl, exception:" (.getMessage ex)))))
 
