@@ -1,5 +1,10 @@
 # Changes
 
+## 1.9.0
+
+- Growl notifications happen quicker and have a green or red icon
+  depending on test status.
+
 ## 1.8.0
 
 - Adds support for only sending notifications if your test status
