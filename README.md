@@ -55,15 +55,10 @@ Alternatively add to your `:plugins` vector in your project.clj file.
       :profile {:dev {:dependencies [[expectations "2.0.9"]]}}
       :plugins [[lein-autoexpect "1.9.0"]])
 
-### Leiningen 1.7 and older
-
-Add `[lein-autoexpect "1.9.0"]` to your `project.clj` file under `:dev-dependencies` or install as a Leiningen plugin (`lein plugin install lein-autoexpect 1.9.0`). Run using `lein autoexpect`
-
-
 ## Compatibility
 
 autoexpect should work with any version of expectations. If there is
-an issue please report it. I've tested it with versions 1.1.0,
+an issue please report it. It has been tested it with versions 1.1.0,
 1.3.[023678], and 1.4.*, and 2.0.9.
 
 Because of
