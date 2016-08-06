@@ -41,7 +41,7 @@ The version in the image below is the latest (and hopefully greatest) released v
 
 [![Latest version](https://clojars.org/lein-autoexpect/latest-version.svg)](https://clojars.org/lein-autoexpect)
 
-### Leiningen 2.0
+### Using with Leiningen 2.0
 
 Add `[lein-autoexpect "1.9.0"]` to your `~/.lein/profiles.clj` as
 follows:
