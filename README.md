@@ -39,7 +39,7 @@ This requires [terminal-notifier] (https://github.com/alloy/terminal-notifier), 
 
 The version in the image below is the latest (and hopefully greatest) released version of `lein-autoexpect`. It is what version number should be used in any of the verion numbers specified lower than this point in the README.
 
-![Latest version](https://clojars.org/lein-autoexpect/latest-version.svg)
+[![Latest version](https://clojars.org/lein-autoexpect/latest-version.svg)](https://clojars.org/lein-autoexpect)
 
 ### Leiningen 2.0
 
