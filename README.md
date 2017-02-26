@@ -2,6 +2,8 @@
 
 Leiningen plug-in for automatically running [expectations](https://github.com/jaycfields/expectations) whenever your Clojure project's source changes.
 
+If you are using expectations clojure.test compatible syntax, you'll want to use [lein-test-refresh](https://github.com/jakemcc/lein-test-refresh).
+
 ## Features
 
 - Allows you to have extremely fast feedback cycles by automatically
