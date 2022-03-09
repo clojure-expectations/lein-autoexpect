@@ -34,7 +34,7 @@ for [OS X](http://growl.info/),
 [Windows](http://growlforwindows.com/).
 
 If you would like to use the OS X notification center, use `lein autoexpect :notify`.
-This requires [terminal-notifier] (https://github.com/alloy/terminal-notifier), which you can install using `brew install terminal-notifier`.
+This requires [terminal-notifier](https://github.com/alloy/terminal-notifier), which you can install using `brew install terminal-notifier`.
 
 
 ### Latest version
