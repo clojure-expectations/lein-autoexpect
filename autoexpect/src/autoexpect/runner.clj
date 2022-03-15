@@ -103,7 +103,8 @@
 
 (def ^:private last-status (atom nil))
 
-(defn monitor-project [& {:keys [should-growl should-notify change-only]}]
+(defn monitor-project [& {:keys [should-growl should-notify change-only refresh-dirs]}]
+  (apply clojure.tools.namespace.repl/set-refresh-dirs refresh-dirs)
   (turn-off-testing-at-shutdown)
   (loop [tracker (make-change-tracker)]
     (let [new-tracker (scan-for-changes tracker)]

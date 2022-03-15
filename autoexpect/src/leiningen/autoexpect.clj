@@ -23,8 +23,16 @@
   [project & args]
   (let [should-growl (some #{:growl ":growl" "growl"} args)
         should-notify (some #{:notify ":notify" "notify"} args)
-        change-only (some #{:change-only ":change-only" "change-only"} args)]
+        change-only (some #{:change-only ":change-only" "change-only"} args)
+        ;; TODO: this might need to also do :test-path and :source-path. I think that may have changed at some point in Leiningen history.
+        refresh-dirs (vec
+                      (concat (:test-paths project)
+                              (:source-paths project)))]
     (eval/eval-in-project
      (add-deps project)
-     `(autoexpect.runner/monitor-project :should-growl ~should-growl :should-notify ~should-notify :change-only ~change-only)
+     `(autoexpect.runner/monitor-project
+       :should-growl ~should-growl
+       :should-notify ~should-notify
+       :change-only ~change-only
+       :refresh-dirs ~refresh-dirs)
      `(require 'autoexpect.runner))))

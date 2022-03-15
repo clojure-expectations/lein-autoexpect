@@ -1,5 +1,9 @@
 # Changes
 
+## NEXT
+
+- lein-autoexpect will only reload the directories in `:source-paths` and `:test-paths`.
+
 ## 1.9.0
 
 - Growl notifications happen quicker and have a green or red icon
