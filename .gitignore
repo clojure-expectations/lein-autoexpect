@@ -8,3 +8,5 @@ target
 
 pom.xml.asc
 *.iml
+.lsp
+.clj-kondo
