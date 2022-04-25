@@ -103,24 +103,45 @@
 
 (def ^:private last-status (atom nil))
 
+(defn- monitor-keystrokes []
+  (let [keystroke-pressed? (atom false)]
+    (future
+      (loop [c (.read System/in)]
+        (if (= c -1)
+          (do
+            (println "")
+            (println "*****************************")
+            (println "autoexpect's stdin stream has been closed, stopping monitoring for keystrokes to run tests")
+            (println "*****************************"))
+          (do
+            (reset! keystroke-pressed? true)
+            (recur (.read System/in))))))
+    (fn []
+      (first (swap-vals! keystroke-pressed? (constantly false))))))
+
 (defn monitor-project [& {:keys [should-growl should-notify change-only refresh-dirs]}]
   (apply clojure.tools.namespace.repl/set-refresh-dirs refresh-dirs)
   (turn-off-testing-at-shutdown)
-  (loop [tracker (make-change-tracker)]
-    (let [new-tracker (scan-for-changes tracker)]
-      (try
-        (when (something-changed? new-tracker tracker)
-          (print-banner)
-          (let [result (run-tests)
-                new-status (:status result)]
-            (when (notify? should-growl change-only @last-status new-status)
-              (growl new-status (:message result)))
-            (when (notify? should-notify change-only @last-status new-status)
-              (notify new-status (:message result)))
-            (when (= new-status "Error")
-              (println (:message result)))
-            (reset! last-status new-status)
-            (print-end-message)))
-        (Thread/sleep 500)
-        (catch Exception ex (.printStackTrace ex)))
-      (recur new-tracker))))
+  (let [keystroke-pressed? (monitor-keystrokes)]
+    (loop [tracker (make-change-tracker)]
+      (let [new-tracker (scan-for-changes tracker)]
+        (try
+          (when (or (keystroke-pressed?)
+                    (something-changed? new-tracker tracker))
+            (print-banner)
+            (let [result (run-tests)
+                  new-status (:status result)]
+              (when (notify? should-growl change-only @last-status new-status)
+                (growl new-status (:message result)))
+              
+              (when (notify? should-notify change-only @last-status new-status)
+                (notify new-status (:message result)))
+              
+              (when (= new-status "Error")
+                (println (:message result)))
+              
+              (reset! last-status new-status)
+              (print-end-message)))
+          (Thread/sleep 200)
+          (catch Exception ex (.printStackTrace ex)))
+        (recur new-tracker)))))

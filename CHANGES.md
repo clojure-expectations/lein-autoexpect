@@ -1,8 +1,9 @@
 # Changes
 
-## NEXT
+## 1.10.0
 
 - lein-autoexpect will only reload the directories in `:source-paths` and `:test-paths`.
+- If you press the Enter/Return key when focused on the terminal running lein autoexpect, the tests will rerun.
 
 ## 1.9.0
 
