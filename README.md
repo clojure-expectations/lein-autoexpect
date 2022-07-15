@@ -12,6 +12,7 @@ If you are using expectations clojure.test compatible syntax, you'll want to use
 - Supports OS X notifications using `terminal-notifier`: `lein autoexpect :notify`.
 - Supports only notifying when test status changes by adding command
   line flag to either of the above commands. `lein autoexpect :notify :change-only`
+- Supports exiting on the first fully passing run. `lein autoexpect :exit-on-pass`
 
 ## Usage
 
@@ -45,17 +46,17 @@ The version in the image below is the latest (and hopefully greatest) released v
 
 ### Using with Leiningen 2.0
 
-Add `[lein-autoexpect "1.9.0"]` to your `~/.lein/profiles.clj` as
+Add `[lein-autoexpect "1.10.2"]` to your `~/.lein/profiles.clj` as
 follows:
 
-    {:user {:plugins [[lein-autoexpect "1.9.0"]]}}
+    {:user {:plugins [[lein-autoexpect "1.10.2"]]}}
     
 Alternatively add to your `:plugins` vector in your project.clj file.
    
     (defproject sample
       :dependencies [[org.clojure/clojure "1.9.0"]]
       :profile {:dev {:dependencies [[expectations "2.0.9"]]}}
-      :plugins [[lein-autoexpect "1.9.0"]])
+      :plugins [[lein-autoexpect "1.10.2"]])
 
 ## Compatibility
 

@@ -1,5 +1,9 @@
 # Changes
 
+## next 
+
+- added option for exit-on-pass 
+
 ## 1.10.0
 
 - lein-autoexpect will only reload the directories in `:source-paths` and `:test-paths`.
