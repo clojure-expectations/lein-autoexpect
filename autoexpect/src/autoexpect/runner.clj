@@ -117,7 +117,9 @@
             (reset! keystroke-pressed? true)
             (recur (.read System/in))))))
     (fn []
-      (first (swap-vals! keystroke-pressed? (constantly false))))))
+      (let [old-val @keystroke-pressed?]
+        (swap! keystroke-pressed? (constantly false))
+        old-val))))
 
 (defn monitor-project [& {:keys [should-growl should-notify change-only refresh-dirs]}]
   (apply clojure.tools.namespace.repl/set-refresh-dirs refresh-dirs)
