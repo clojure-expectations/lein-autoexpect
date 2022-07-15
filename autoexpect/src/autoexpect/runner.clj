@@ -117,9 +117,11 @@
             (reset! keystroke-pressed? true)
             (recur (.read System/in))))))
     (fn []
-      (first (swap-vals! keystroke-pressed? (constantly false))))))
+      (let [old-val @keystroke-pressed?]
+        (swap! keystroke-pressed? (constantly false))
+        old-val))))
 
-(defn monitor-project [& {:keys [should-growl should-notify change-only refresh-dirs]}]
+(defn monitor-project [& {:keys [should-growl should-notify should-exit-on-pass change-only refresh-dirs]}]
   (apply clojure.tools.namespace.repl/set-refresh-dirs refresh-dirs)
   (turn-off-testing-at-shutdown)
   (let [keystroke-pressed? (monitor-keystrokes)]
@@ -141,7 +143,9 @@
                 (println (:message result)))
               
               (reset! last-status new-status)
-              (print-end-message)))
+              (print-end-message)
+              (when (and should-exit-on-pass (= new-status "Passed"))
+                (System/exit 0))))
           (Thread/sleep 200)
           (catch Exception ex (.printStackTrace ex)))
         (recur new-tracker)))))
