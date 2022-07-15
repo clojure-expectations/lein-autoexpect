@@ -1,6 +1,6 @@
 # Changes
 
-## next 
+## 1.10.2
 
 - added option for exit-on-pass 
 
