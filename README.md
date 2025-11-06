@@ -46,17 +46,17 @@ The version in the image below is the latest (and hopefully greatest) released v
 
 ### Using with Leiningen 2.0
 
-Add `[lein-autoexpect "1.10.2"]` to your `~/.lein/profiles.clj` as
+Add `[lein-autoexpect "1.11.0"]` to your `~/.lein/profiles.clj` as
 follows:
 
-    {:user {:plugins [[lein-autoexpect "1.10.2"]]}}
+    {:user {:plugins [[lein-autoexpect "1.11.0"]]}}
     
 Alternatively add to your `:plugins` vector in your project.clj file.
    
     (defproject sample
       :dependencies [[org.clojure/clojure "1.9.0"]]
       :profile {:dev {:dependencies [[expectations "2.0.9"]]}}
-      :plugins [[lein-autoexpect "1.10.2"]])
+      :plugins [[lein-autoexpect "1.11.0"]])
 
 ## Compatibility
 
