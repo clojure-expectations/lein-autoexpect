@@ -1,14 +1,19 @@
 (ns leiningen.autoexpect
-  (:require [leinjacker.deps :as deps]
-            [leinjacker.eval :as eval]))
+  (:require leiningen.core.eval))
+
+(defn add-if-missing [project specification]
+  (cond-> project
+    (not (some (fn [[dep-name _]] (= (first specification) dep-name))
+               (:dependencies project)))
+    (update :dependencies (fnil conj []) specification)))
 
 (defn- add-deps [project]
   (let [dep-specification (first
-                           (filter (fn [[name version]] (= name 'lein-autoexpect/lein-autoexpect))
+                           (filter (fn [[name _]] (= name 'lein-autoexpect/lein-autoexpect))
                                    (:plugins project)))]
     (-> project
-        (deps/add-if-missing dep-specification)
-        (deps/add-if-missing '[org.clojure/tools.namespace "0.2.11"]))))
+        (add-if-missing dep-specification)
+        (add-if-missing '[org.clojure/tools.namespace "0.2.11"]))))
 
 (defn ^{:help-arglists '([])} autoexpect
   "Autoruns expecations on source change
@@ -25,11 +30,10 @@
         should-notify (some #{:notify ":notify" "notify"} args)
         should-exit-on-pass (some #{:exit-on-pass ":exit-on-pass" "exit-on-pass"} args)
         change-only (some #{:change-only ":change-only" "change-only"} args)
-        ;; TODO: this might need to also do :test-path and :source-path. I think that may have changed at some point in Leiningen history.
         refresh-dirs (vec
                       (concat (:test-paths project)
                               (:source-paths project)))]
-    (eval/eval-in-project
+    (leiningen.core.eval/eval-in-project
      (add-deps project)
      `(autoexpect.runner/monitor-project
        :should-growl ~should-growl

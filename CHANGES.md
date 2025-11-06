@@ -1,5 +1,9 @@
 # Changes
 
+## 1.11.0
+
+- Move off of leinjacker dep as it was failing with Clojure 1.11
+
 ## 1.10.2
 
 - added option for exit-on-pass 
